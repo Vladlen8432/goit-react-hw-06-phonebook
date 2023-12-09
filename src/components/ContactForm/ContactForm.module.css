@@ -1,0 +1,26 @@
+.inputItem {
+    margin-bottom: 14px;
+    min-width: 300px;
+    height: 26px;
+    font-size: 100%;
+    border-radius: 4px;
+}
+
+.formButton {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    height: 36px;
+    width: 180px;
+    background-color: #0080ff;
+    border: none;
+    border-radius: 4px;
+    color: #f2f2f2;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.formButton:hover {
+    background-color: #0073e6;
+    color: #fff;
+}
