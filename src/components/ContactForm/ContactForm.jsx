@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleAddContact } from '../contactActions';
 import css from './ContactForm.module.css';
 
-const ContactForm = ({ onAddContact }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.items);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const setNameRef = useRef(setName);
+  const setNumberRef = useRef(setNumber);
 
   const handleNameChange = event => {
     setName(event.target.value);
@@ -19,7 +25,14 @@ const ContactForm = ({ onAddContact }) => {
       return;
     }
 
-    onAddContact(name, number);
+    handleAddContact(
+      dispatch,
+      contacts,
+      name,
+      number,
+      setNameRef.current,
+      setNumberRef.current
+    );
     setName('');
     setNumber('');
   };
@@ -52,56 +65,3 @@ const ContactForm = ({ onAddContact }) => {
 };
 
 export default ContactForm;
-
-// class ContactForm extends Component {
-//   state = {
-//     name: '',
-//     number: '',
-//   };
-
-//   handleNameChange = event => {
-//     this.setState({ name: event.target.value });
-//   };
-
-//   handleNumberChange = event => {
-//     this.setState({ number: event.target.value });
-//   };
-
-//   handleSubmit = event => {
-//     event.preventDefault();
-//     if (this.state.name.trim() === '' || this.state.number.trim() === '') {
-//       return;
-//     }
-
-//     this.props.onAddContact(this.state.name, this.state.number);
-//     this.setState({ name: '', number: '' });
-//   };
-
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <input
-//           className={css.inputItem}
-//           type="text"
-//           name="name"
-//           required
-//           value={this.state.name}
-//           onChange={this.handleNameChange}
-//         />
-//         <br />
-//         <input
-//           className={css.inputItem}
-//           type="text"
-//           name="number"
-//           required
-//           value={this.state.number}
-//           onChange={this.handleNumberChange}
-//         />
-//         <br />
-//         <button className={css.formButton} type="submit">Add contact</button>
-//       </form>
-//     );
-//   }
-// }
-
-// export default ContactForm;

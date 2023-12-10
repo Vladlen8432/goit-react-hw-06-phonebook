@@ -1,7 +1,14 @@
 import { nanoid } from 'nanoid';
 import { addContact, deleteContact, updateFilter } from './Redux/ContactSlice';
 
-export const handleAddContact = (dispatch, contacts, name, number) => {
+export const handleAddContact = (
+  dispatch,
+  contacts,
+  name,
+  number,
+  setName,
+  setNumber
+) => {
   if (
     contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())
   ) {
@@ -13,6 +20,9 @@ export const handleAddContact = (dispatch, contacts, name, number) => {
       number: number,
     };
     dispatch(addContact(newContact));
+
+    setName('');
+    setNumber('');
   }
 };
 
